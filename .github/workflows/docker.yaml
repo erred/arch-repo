@@ -1,0 +1,28 @@
+name: docker
+on:
+  push:
+    paths:
+      - ".github/workflows/docker.yaml"
+      - "Dockerfile"
+  schedule:
+    - cron: "0 0 * * *"
+env:
+  REGISTRY: docker.pkg.github.com
+  IMG: aur
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      - name: login
+        run: docker login ${REGISTRY} -u ${GITHUB_REPOSITORY%/*} -p ${TOKEN}
+        env:
+          TOKEN: ${{ secrets.PAT }}
+      - name: build
+        run: docker build -t ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:latest -t ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:${GITHUB_SHA:0:7} ${IMG}
+      - name: push sha
+        run: docker push ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:${GITHUB_SHA:0:7}
+      - name: push latest
+        run: docker push ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:latest
