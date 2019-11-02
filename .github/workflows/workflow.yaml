@@ -1,6 +1,9 @@
 name: workflow
 on:
   push:
+    paths-ignore:
+      - "Dockerfile"
+      - ".github/workflows/docker.yaml"
     branch:
       - master
   schedule:
@@ -8,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: docker.pkg.github.com/seankhliao/arch-repo/aur
+    container: docker.pkg.github.com/seankhliao/arch-repo/yay:latest
     env:
       PACKAGES: yay-bin google-chrome-dev google-chrome
       repo: seankhliao
