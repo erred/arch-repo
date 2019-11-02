@@ -18,7 +18,7 @@ jobs:
       - run: pacman -Syu --noconfirm git base-devel
 
       - run: git clone https://aur.archlinux.org/yay-bin.git
-      - run: chown nobody:nobody -R .
+      - run: chown yay:yay -R .
       - run: cd yay-bin && su -c "makepkg -i" - yay
 
       - run: su -c "yay -S --noconfirm --builddir . $PACKAGES" - yay
