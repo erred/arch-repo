@@ -9,14 +9,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container: archlinux
+    env:
+      PACKAGES: yay-bin google-chrome-dev google-chrome
     steps:
       - uses: actions/checkout@master
       - run: pacman -Syu --noconfirm git base-devel
-      - run: git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && sudo -c makepkg - nobody && pacman -U yay-bin*pkg*
-      - run: yay -Sy --noconfirm --builddir . --makepkgconf makepkg.conf $PACKAGES
-        env:
-          PACKAGES: yay-bin google-chrome-dev google-chrome
-      - run: for pkg in $(pacman -Qqem); do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
+      - run: git clone https://aur.archlinux.org/yay-bin.git
+      - run: cd yay-bin && su -c makepkg - nobody && pacman -U yay-bin*pkg*
+      - run: su -c yay -G $PACKAGES - nobody
+      - run: for pkg in $PACKAGES; do cd $pkg && su -c makepkg --config ../makepkg.conf - nobody && cd ..; done
+      - run: for pkg in $PACKAGES; do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
