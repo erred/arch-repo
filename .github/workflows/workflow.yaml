@@ -13,11 +13,12 @@ jobs:
       PACKAGES: yay-bin google-chrome-dev google-chrome
     steps:
       - uses: actions/checkout@master
+      - run: useradd -r -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
       - run: pacman -Syu --noconfirm git base-devel
       - run: git clone https://aur.archlinux.org/yay-bin.git
       - run: cd yay-bin && su -c makepkg - nobody && pacman -U yay-bin*pkg*
-      - run: su -c yay -G $PACKAGES - nobody
-      - run: for pkg in $PACKAGES; do cd $pkg && su -c makepkg --config ../makepkg.conf - nobody && cd ..; done
+      - run: su -c yay -G $PACKAGES - yay
+      - run: for pkg in $PACKAGES; do cd $pkg && su -c makepkg --config ../makepkg.conf - yay && cd ..; done
       - run: for pkg in $PACKAGES; do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
