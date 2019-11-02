@@ -14,12 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
-      - run: mkdir /workspace && cd /workspace
       - run: useradd -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
       - run: pacman -Syu --noconfirm git base-devel
 
-      - run: git clone https://aur.archlinux.org/yay-bin.git
-      - run: chown nobody:nobody -R /workspace
+      - run: git clone https://aur.archlinux.org/yay-bin.git /workspace
+      - run: chown nobody:nobody -R .
       - run: cd yay-bin && su -c "makepkg -i" - yay
 
       - run: su -c "yay -S --noconfirm --builddir . $PACKAGES" - yay
