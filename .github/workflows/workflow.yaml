@@ -10,13 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     container: archlinux
     env:
-      PACKAGES: yay-bin google-chrome-dev google-chrome
+      PACKAGES: yay-bin
+      # PACKAGES: yay-bin google-chrome-dev google-chrome
       repo: seankhliao
     steps:
       - uses: actions/checkout@master
 
       - run: useradd -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-      - run: pacman -Syu --noconfirm git base-devel
+      - run: pacman -Syu --noconfirm git
+      # - run: pacman -Syu --noconfirm git base-devel
 
       - run: git clone https://aur.archlinux.org/yay-bin.git
       - run: chown yay:yay -R .
