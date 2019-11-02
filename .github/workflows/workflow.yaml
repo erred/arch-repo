@@ -22,9 +22,9 @@ jobs:
       - run: cd yay-bin && su -c "makepkg -i --noconfirm" - yay && mkdir /home/yay && chown yay:yay /home/yay
 
       - run: mkdir build && chown yay:yay build && su -c "yay -S --noconfirm --builddir build $PACKAGES" - yay
-      - run: for pkg in build/*; do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
+      - run: mkdir pkgs && for pkg in build/*; do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
 
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: git add pkgs/* && git commit -m "update pkgs" && git push
+      - run: git add pkgs && git commit -m "update pkgs" && git push
