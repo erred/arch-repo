@@ -19,7 +19,7 @@ jobs:
 
       - run: git clone https://aur.archlinux.org/yay-bin.git
       - run: chown yay:yay -R .
-      - run: cd yay-bin && su -c "makepkg -i" - yay
+      - run: cd yay-bin && su -c "makepkg -i --noconfirm" - yay
 
       - run: su -c "yay -S --noconfirm --builddir . $PACKAGES" - yay
       - run: for pkg in $PACKAGES; do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
