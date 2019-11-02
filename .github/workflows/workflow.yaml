@@ -12,11 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - run: pacman -Syu --noconfirm git base-devel
-      - run: git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && makepkg -si
+      - run: git clone https://aur.archlinux.org/yay-bin.git && cd yay-bin && sudo -c makepkg - nobody && pacman -U yay-bin*pkg*
       - run: yay -Sy --noconfirm --builddir . --makepkgconf makepkg.conf $PACKAGES
         env:
           PACKAGES: yay-bin google-chrome-dev google-chrome
-      - run: for pkg in $(pacman -Qqem); do repo-add -R pkgs/$repo.db.tar.xz $pkg/$pkg*.pkg.xz; done
+      - run: for pkg in $(pacman -Qqem); do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
