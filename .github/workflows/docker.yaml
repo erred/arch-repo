@@ -8,7 +8,7 @@ on:
     - cron: "0 0 * * *"
 env:
   REGISTRY: docker.pkg.github.com
-  IMG: aur
+  IMG: yay
 jobs:
   build:
     name: build
