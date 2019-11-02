@@ -8,22 +8,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: archlinux
+    container: docker.pkg.github.com/seankhliao/arch-repo/aur
     env:
       PACKAGES: yay-bin google-chrome-dev google-chrome
       repo: seankhliao
     steps:
       - uses: actions/checkout@master
 
-      - run: useradd -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-      - run: pacman -Syu --noconfirm git base-devel
-
-      - run: git clone https://aur.archlinux.org/yay-bin.git
-      - run: chown yay:yay -R .
-      - run: cd yay-bin && su -c "makepkg -i --noconfirm" - yay && mkdir /home/yay && chown yay:yay /home/yay
-
-      - run: mkdir build && chown yay:yay build && su -c "yay -S --noconfirm --builddir build $PACKAGES" - yay
-      - run: bash -c "mkdir pkgs && for pkg in build/*; do repo-add -R pkgs/$repo.db.tar.zst $pkg/*.pkg.zst; done"
+      - run: su -c "yay -S --noconfirm --builddir /home/user/build $PACKAGES" - user
+      - run: ls /home/user/build
+      - run: bash -c "mkdir pkgs && for pkg in /home/user/build/*; do cp $pkg/*.pkg.zst pkgs; done"
+      - run: repo-add -R pkgs/$repo.db.tar.zst pkgs/*.pkg.zst
       - run: git status -s
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:

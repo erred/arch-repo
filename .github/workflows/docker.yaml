@@ -21,7 +21,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.PAT }}
       - name: build
-        run: docker build -t ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:latest -t ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:${GITHUB_SHA:0:7} ${IMG}
+        run: docker build -t ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:latest -t ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:${GITHUB_SHA:0:7} .
       - name: push sha
         run: docker push ${REGISTRY}/${GITHUB_REPOSITORY}/${IMG}:${GITHUB_SHA:0:7}
       - name: push latest
