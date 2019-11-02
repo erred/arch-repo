@@ -11,7 +11,7 @@ jobs:
     container: archlinux
     steps:
       - uses: actions/checkout@master
-      - run: pacman -S git base-devel
+      - run: pacman -S --noconfirm git base-devel
       - run: git clone https://aur.archlinux.com/yay-bin.git && cd yay-bin && makepkg -si
       - run: yay -Sy --noconfirm --builddir . --makepkgconf makepkg.conf $PACKAGES
         env:
