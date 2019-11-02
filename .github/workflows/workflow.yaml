@@ -17,7 +17,7 @@ jobs:
       - run: useradd -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
       - run: pacman -Syu --noconfirm git base-devel
 
-      - run: git clone https://aur.archlinux.org/yay-bin.git /workspace
+      - run: git clone https://aur.archlinux.org/yay-bin.git
       - run: chown nobody:nobody -R .
       - run: cd yay-bin && su -c "makepkg -i" - yay
 
