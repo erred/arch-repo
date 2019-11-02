@@ -1,0 +1,22 @@
+name: workflow
+on:
+  push:
+    branch:
+      - master
+  schedule:
+    - cron: "0 0 */6 * *"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux
+    steps:
+      - uses: actions/checkout@master
+      - run: git clone https://aur.archlinux.com/yay-bin.git && cd yay-bin && makepkg -si
+      - run: yay -Sy --noconfirm --builddir . --makepkgconf makepkg.conf $PACKAGES
+        env:
+          PACKAGES: yay-bin google-chrome-dev google-chrome
+      - run: for pkg in $(pacman -Qqem); do repo-add -R pkgs/$repo.db.tar.xz $pkg/$pkg*.pkg.xz; done
+      - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: git add pkgs/* && git commit -m "update pkgs" && git push
