@@ -15,12 +15,12 @@ jobs:
       - uses: actions/checkout@master
 
       - run: mkdir /workspace && cd /workspace
-      - run: useradd -r -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+      - run: useradd -G wheel yay && echo "%wheel ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
       - run: pacman -Syu --noconfirm git base-devel
 
       - run: git clone https://aur.archlinux.org/yay-bin.git
       - run: chown nobody:nobody -R /workspace
-      - run: cd yay-bin && su -c makepkg - yay && pacman -U yay-bin*pkg*
+      - run: cd yay-bin && su -c makepkg -i - yay
 
       - run: su -c yay -S $PACKAGES - yay
       - run: for pkg in $PACKAGES; do repo-add -R pkgs/$repo.db.tar.zst $pkg/$pkg*.pkg.zst; done
