@@ -24,7 +24,7 @@ jobs:
           TOKEN: ${{ secrets.PAT }}
 
       - run: mkdir build && chmod 0777 build
-      - run: docker run -u user -v $(pwd)/build:/home/user/build docker.pkg.github.com/seankhliao/arch-repo/yay:latest yay -S --noconfirm --builddir /home/user/build $PACKAGES
+      - run: docker run -u user -v $(pwd)/build:/home/user/build -v $(pwd):/mnt docker.pkg.github.com/seankhliao/arch-repo/yay:latest yay -S --noconfirm --builddir /home/user/build --makepkgconf /mnt/makepkg.conf $PACKAGES
 
       - run: for p in build/*; do cp $p/*.pkg.tar.zst pkgs; done
       - run: repo-add -R pkgs/$repo.db.tar.zst pkgs/*.pkg.tar.zst
