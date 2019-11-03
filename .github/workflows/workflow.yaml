@@ -34,4 +34,5 @@ jobs:
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: git checkout master
       - run: git add pkgs && git commit -m "update pkgs" && git push
