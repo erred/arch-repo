@@ -27,11 +27,10 @@ jobs:
       - run: mkdir build && chmod 0777 build
       - run: docker run -u user -v $(pwd)/build:/home/user/build -v $(pwd):/mnt $REGISTRY/$IMG yay -S --noconfirm --builddir /home/user/build $PACKAGES
 
-      - run: git status -s
       - run: mkdir pkgs && chmod 0777 pkgs && for p in build/*; do cp -v $p/*.pkg.tar.zst pkgs; done
       - run: docker run -v $(pwd):/workspace -w /workspace $REGISTRY/$IMG repo-add -R pkgs/$repo.db.tar.zst pkgs/*.pkg.tar.zst
 
-      - run: git status -s
+      - run: git config user.email "workflow@github.actions" && git config user.name "Github Actions"
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
