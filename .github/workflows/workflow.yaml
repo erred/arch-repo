@@ -23,7 +23,7 @@ jobs:
         env:
           TOKEN: ${{ secrets.PAT }}
 
-      - run: useradd -u 1000 user && mkdir build && chown user:user build
+      - run: mkdir build && whoami
       - run: docker run -u user -v $(pwd)/build:/home/user/build docker.pkg.github.com/seankhliao/arch-repo/yay:latest yay -S --noconfirm --builddir /home/user/build $PACKAGES
 
       - run: for p in build/*; do cp $p/*.pkg.zst pkgs; done
