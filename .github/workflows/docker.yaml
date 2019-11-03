@@ -4,6 +4,7 @@ on:
     paths:
       - ".github/workflows/docker.yaml"
       - "Dockerfile"
+      - "makepkg.conf"
   schedule:
     - cron: "0 0 * * *"
 env:

@@ -13,3 +13,5 @@ RUN git clone https://aur.archlinux.org/yay-bin.git && \
     makepkg -si --noconfirm --noprogressbar && \
     cd .. && \
     rm -rf yay-bin
+
+COPY makepkg.conf /etc/
