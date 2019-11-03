@@ -21,10 +21,13 @@ jobs:
         run: docker login ${REGISTRY} -u ${GITHUB_REPOSITORY%/*} -p ${TOKEN}
         env:
           TOKEN: ${{ secrets.PAT }}
-      - name: mkdir build && chown 1000:1000 build
-      - name: docker run -u user -v $(pwd)/build:/home/user/build docker.pkg.github.com/seankhliao/arch-repo/yay:latest yay -S --noconfirm --builddir /home/user/build $PACKAGES
+
+      - run: mkdir build && chown 1000:1000 build
+      - run: docker run -u user -v $(pwd)/build:/home/user/build docker.pkg.github.com/seankhliao/arch-repo/yay:latest yay -S --noconfirm --builddir /home/user/build $PACKAGES
+
       - run: for p in build/*; do cp $p/*.pkg.zst pkgs; done
       - run: repo-add -R pkgs/$repo.db.tar.zst pkgs/*.pkg.zst
+
       - run: git status -s
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
