@@ -29,6 +29,7 @@ jobs:
 
       - run: mkdir pkgs || true && chmod 0777 pkgs && for p in build/*; do cp -v $p/*.pkg.tar.zst pkgs; done
       - run: docker run -v $(pwd):/workspace -w /workspace $REGISTRY/$IMG repo-add -R pkgs/$repo.db.tar.zst pkgs/*.pkg.tar.zst
+      - run: rm pkgs/$repo.db pkgs/$repo.files
       - run: cp pkgs/$repo.db.tar.zst pkgs/$repo.db && cp pkgs/$repo.files.tar.zst pkgs/$repo.files
 
       - run: git config user.email "workflow@github.actions" && git config user.name "Github Actions" && git checkout master
