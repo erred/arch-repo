@@ -9,12 +9,12 @@ EXT=pkg.tar.zst
 
 [[ -d $PKGS ]] || sudo mkdir $PKGS
 for p in $PKGS/*.$EXT; do
-    sudo ln -sf $p /var/cache/pacman/
+    sudo ln -sf $(pwd)/$p /var/cache/pacman/
 done
 
 mkdir $BUILD
 HOME=/tmp
-yay -S --noconfirm --builddir $BUILD --batchinstall --needed \
+yay -S --noconfirm --builddir $BUILD --batchinstall \
     downgrade \
     google-chrome-dev \
     google-chrome \
