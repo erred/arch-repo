@@ -1,11 +1,11 @@
 FROM archlinux
 
+COPY makepkg.conf /etc/
 RUN pacman -Sy --noconfirm --noprogressbar reflector && \
-    reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
-RUN pacman -Syu --noconfirm --noprogressbar base-devel git && \
+    reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist && \
+    pacman -Syu --noconfirm --noprogressbar base-devel git && \
     useradd -m user && \
     echo "user ALL=NOPASSWD: ALL" >> /etc/sudoers
-COPY makepkg.conf /etc/
 
 USER user
 WORKDIR /home/user
