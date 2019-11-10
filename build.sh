@@ -8,9 +8,6 @@ REPO=seankhliao
 EXT=pkg.tar.zst
 
 [[ -d $PKGS ]] || sudo mkdir $PKGS
-for p in $PKGS/*.$EXT; do
-    sudo ln -sf $(pwd)/$p /var/cache/pacman/
-done
 
 mkdir $BUILD
 HOME=/tmp
@@ -24,7 +21,7 @@ yay -S --noconfirm --builddir $BUILD --batchinstall \
     wl-clipboard \
     yay-bin
 
-for p in $BUILD/*; do
+for p in $BUILD/*.$EXT; do
     sudo cp -v $p/*.$EXT $PKGS/
 done
 
