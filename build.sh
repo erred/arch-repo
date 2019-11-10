@@ -21,7 +21,7 @@ yay -S --noconfirm --builddir $BUILD --batchinstall \
     wl-clipboard \
     yay-bin
 
-for p in $BUILD/*.$EXT; do
+for p in $BUILD/*; do
     sudo cp -v $p/*.$EXT $PKGS/
 done
 
