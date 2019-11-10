@@ -16,10 +16,11 @@ steps:
   - id: warm pkg cache
     name: gcr.io/cloud-builders/gsutil
     args:
-      - cp
+      - -m
+      - rsync
       - -r
       - gs://$_BKT
-      - pkgs/
+      - pkgs
 
   - id: build pkgs
     name: gcr.io/$PROJECT_ID/$_IMG:latest
