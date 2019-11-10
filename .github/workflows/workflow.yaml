@@ -1,13 +1,13 @@
 name: workflow
 on:
-  push:
-    paths-ignore:
-      - "Dockerfile"
-      - ".github/workflows/docker.yaml"
-    branch:
-      - master
-  schedule:
-    - cron: "0 0 * * *"
+  # push:
+  #   paths-ignore:
+  #     - "Dockerfile"
+  #     - ".github/workflows/docker.yaml"
+  #   branch:
+  #     - master
+  # schedule:
+  #   - cron: "0 0 * * *"
 jobs:
   build:
     runs-on: ubuntu-latest
