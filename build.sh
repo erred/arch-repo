@@ -3,6 +3,7 @@
 set -euxo pipefail
 
 BUILD=/tmp/build
+REPO=seankhliao
 
 mkdir $BUILD
 HOME=/tmp
