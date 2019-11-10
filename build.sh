@@ -18,7 +18,7 @@ yay -S --noconfirm --builddir $BUILD --batchinstall \
     kubernetes-helm-git \
     neovim-plug-git \
     tag-ag \
-    wl-clipboard \
+    wl-clipboard-x11 \
     yay-bin
 
 for p in $BUILD/*; do
