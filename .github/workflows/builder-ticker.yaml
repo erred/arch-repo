@@ -9,10 +9,12 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@master
-      - run: git config user.email "workflow@github.actions" && git config user.name "GH Actions Ticker" && git checkout master
+        with:
+          refs: ticker-builder
+      - run: git config user.email "workflow@github.actions" && git config user.name "GH Actions Ticker" && git checkout ticker-builder
       - run: git remote set-url origin https://github-actions:${GITHUB_TOKEN}@github.com/seankhliao/arch-repo
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - run: date --iso-8601=seconds > .ticker-builder
+      - run: date --iso-8601=seconds > .ticker
       - run: git add * && git commit -m "tick" && git push
