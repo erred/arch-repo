@@ -23,5 +23,3 @@ for p in $BUILD/*; do
 done
 
 sudo repo-add -R pkgs/$REPO.db.tar.zst pkgs/*.pkg.tar.zst
-# rm pkgs/$REPO.db pkgs/$REPO.files
-# cp pkgs/$repo.db.tar.zst pkgs/$repo.db && cp pkgs/$repo.files.tar.zst pkgs/$repo.files

@@ -13,12 +13,12 @@ artifacts:
       - pkgs/*
 
 steps:
-  # - id: warm pkg cache
-  #   name: gcr.io/cloud-builders/gsutil
-  #   args:
-  #     - cp
-  #     - gs://$_BKT/pkgs
-  #     - pkgs
+  - id: warm pkg cache
+    name: gcr.io/cloud-builders/gsutil
+    args:
+      - cp
+      - gs://$_BKT
+      - pkgs
 
   - id: build pkgs
     name: gcr.io/$PROJECT_ID/$_IMG:latest
