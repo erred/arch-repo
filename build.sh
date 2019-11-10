@@ -2,6 +2,9 @@
 
 set -euxo pipefail
 
+id
+pwd
+
 yay -S --noconfirm --builddir /home/user/build \
     downgrade \
     google-chrome-dev \
