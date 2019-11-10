@@ -1,0 +1,27 @@
+tags:
+  - $COMMIT_SHA
+  - $SHORT_SHA
+  - arch-repo
+  - arch-repo-aur
+substitutions:
+  _IMG: arch-repo-builder
+  _BKT: seankhliao-arch-repo
+artifacts:
+  objects:
+    location: gs://$_BKT
+    paths:
+      - pkgs
+
+steps:
+  # - id: warm pkg cache
+  #   name: gcr.io/cloud-builders/gsutil
+  #   args:
+  #     - cp
+  #     - gs://$_BKT/pkgs
+  #     - pkgs
+
+  - id: build pkgs
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    args:
+      - ./build.sh
