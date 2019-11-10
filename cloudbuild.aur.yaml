@@ -10,7 +10,7 @@ artifacts:
   objects:
     location: gs://$_BKT
     paths:
-      - pkgs/*
+      - $_BKT/*
 
 steps:
   - id: warm pkg cache
