@@ -19,6 +19,11 @@ steps:
   #     - cp
   #     - gs://$_BKT/pkgs
   #     - pkgs
+  name: gcr.io/cloud-builders/gcloud
+  entrypoint: /usr/bin/bash
+  args:
+    - -c
+    - cat /etc/passwd
 
   - id: build pkgs
     name: gcr.io/$PROJECT_ID/$_IMG:latest
