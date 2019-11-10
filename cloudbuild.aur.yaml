@@ -17,6 +17,7 @@ steps:
     name: gcr.io/cloud-builders/gsutil
     args:
       - cp
+      - -r
       - gs://$_BKT
       - pkgs
 
