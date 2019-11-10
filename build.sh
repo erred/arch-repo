@@ -14,7 +14,7 @@ done
 
 mkdir $BUILD
 HOME=/tmp
-yay -S --noconfirm --builddir $BUILD --batchinstall \
+yay -S --noconfirm --builddir $BUILD --batchinstall --needed \
     downgrade \
     google-chrome-dev \
     google-chrome \
