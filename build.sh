@@ -2,7 +2,11 @@
 
 set -euxo pipefail
 
-HOME=/dev/null yay -S --noconfirm --builddir /home/user/build \
+BUILD=/tmp/build
+
+mkdir $BUILD
+HOME=/tmp
+yay -S --noconfirm --builddir $BUILD \
     downgrade \
     google-chrome-dev \
     google-chrome \
@@ -13,7 +17,7 @@ HOME=/dev/null yay -S --noconfirm --builddir /home/user/build \
     yay-bin
 
 [[ -d pkgs ]] || mkdir pkgs
-for p in /home/user/build/*; do
+for p in $BUILD/*; do
     cp -v $p/*.pkg.tar.zst pkgs/
 done
 
