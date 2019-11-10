@@ -5,6 +5,7 @@ RUN pacman -Sy --noconfirm --noprogressbar reflector && \
 RUN pacman -Syu --noconfirm --noprogressbar base-devel git && \
     useradd -m user && \
     echo "user ALL=NOPASSWD: ALL" >> /etc/sudoers
+COPY makepkg.conf /etc/
 
 USER user
 WORKDIR /home/user
@@ -13,5 +14,3 @@ RUN git clone https://aur.archlinux.org/yay-bin.git && \
     makepkg -si --noconfirm --noprogressbar && \
     cd .. && \
     rm -rf yay-bin
-
-COPY makepkg.conf /etc/

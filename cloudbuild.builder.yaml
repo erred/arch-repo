@@ -1,0 +1,17 @@
+tags:
+  - $COMMIT_SHA
+  - $SHORT_SHA
+  - arch-repo
+  - arch-repo-builder
+substitutions:
+  _IMG: arch-repo-builder
+images:
+  - gcr.io/$PROJECT_ID/$_IMG:latest
+
+steps:
+  - id: build
+    name: gcr.io/cloud-builders/docker:latest
+    args:
+      - build
+      - -t=gcr.io/$PROJECT_ID/$_IMG:latest
+      - .
