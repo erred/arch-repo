@@ -6,7 +6,7 @@ BUILD=/tmp/build
 
 mkdir $BUILD
 HOME=/tmp
-yay -S --noconfirm --builddir $BUILD \
+yay -S --noconfirm --builddir $BUILD --batchinstall \
     downgrade \
     google-chrome-dev \
     google-chrome \
@@ -16,11 +16,11 @@ yay -S --noconfirm --builddir $BUILD \
     wl-clipboard \
     yay-bin
 
-[[ -d pkgs ]] || mkdir pkgs
+[[ -d pkgs ]] || sudo mkdir pkgs
 for p in $BUILD/*; do
-    cp -v $p/*.pkg.tar.zst pkgs/
+    sudo cp -v $p/*.pkg.tar.zst pkgs/
 done
 
-repo-add -R pkgs/$REPO.db.tar.zst pkgs/*.pkg.tar.zst
+sudo repo-add -R pkgs/$REPO.db.tar.zst pkgs/*.pkg.tar.zst
 # rm pkgs/$REPO.db pkgs/$REPO.files
 # cp pkgs/$repo.db.tar.zst pkgs/$repo.db && cp pkgs/$repo.files.tar.zst pkgs/$repo.files
