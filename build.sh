@@ -3,7 +3,14 @@
 set -euxo pipefail
 
 BUILD=/tmp/build
+PKGS=seankhliao-arch-repo
 REPO=seankhliao
+EXT=pkg.tar.zst
+
+[[ -d $PKGS ]] || sudo mkdir $PKGS
+for p in $PKGS/*.$EXT; do
+    sudo ln -sf $p /var/cache/pacman/
+done
 
 mkdir $BUILD
 HOME=/tmp
@@ -17,9 +24,8 @@ yay -S --noconfirm --builddir $BUILD --batchinstall \
     wl-clipboard \
     yay-bin
 
-[[ -d pkgs ]] || sudo mkdir pkgs
 for p in $BUILD/*; do
-    sudo cp -v $p/*.pkg.tar.zst pkgs/
+    sudo cp -v $p/*.$EXT $PKGS/
 done
 
-sudo repo-add -R pkgs/$REPO.db.tar.zst pkgs/*.pkg.tar.zst
+sudo repo-add -R $PKGS/$REPO.db.tar.zst $PKGS/*.$EXT

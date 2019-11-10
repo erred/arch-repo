@@ -20,7 +20,7 @@ steps:
       - rsync
       - -r
       - gs://$_BKT
-      - pkgs
+      - .
 
   - id: build pkgs
     name: gcr.io/$PROJECT_ID/$_IMG:latest
