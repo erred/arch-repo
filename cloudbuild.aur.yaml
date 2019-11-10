@@ -19,7 +19,7 @@ steps:
       - cp
       - -r
       - gs://$_BKT
-      - pkgs
+      - pkgs/
 
   - id: build pkgs
     name: gcr.io/$PROJECT_ID/$_IMG:latest
