@@ -17,4 +17,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: date --iso-8601=seconds > .ticker
-      - run: git add * && git commit -m "tick" && git push
+      - run: git add .ticker && git commit -m "tick" && git push
