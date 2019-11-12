@@ -23,9 +23,7 @@ yay -Syu --noconfirm --builddir $BUILD --batchinstall \
     microsoft-python-language-server \
     neovim-git \
     neovim-plug-git \
-    ripgrep-git \
     tag-ag \
-    texlab-git \
     vscode-css-languageserver-bin \
     vscode-html-languageserver-bin \
     vscode-json-languageserver-bin \
