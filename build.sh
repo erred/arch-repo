@@ -14,7 +14,6 @@ HOME=/tmp
 yay -Syu --noconfirm --builddir $BUILD --batchinstall \
     dockerfile-language-server-bin \
     downgrade \
-    exa-git \
     go-git \
     google-chrome-dev \
     google-chrome \
@@ -25,7 +24,6 @@ yay -Syu --noconfirm --builddir $BUILD --batchinstall \
     neovim-git \
     neovim-plug-git \
     ripgrep-git \
-    rsync-git \
     tag-ag \
     texlab-git \
     vscode-css-languageserver-bin \
