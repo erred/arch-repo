@@ -11,7 +11,7 @@ EXT=pkg.tar.zst
 
 mkdir $BUILD
 HOME=/tmp
-yay -S --noconfirm --builddir $BUILD --batchinstall \
+yay -Syu --noconfirm --builddir $BUILD --batchinstall \
     dockerfile-language-server-bin \
     downgrade \
     exa-git \
