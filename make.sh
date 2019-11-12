@@ -25,7 +25,7 @@ steps:
       - -m
       - rsync
       - -r
-      - gs://$_BKT
+      - gs://\$_BKT
       - .
 
 EOF1

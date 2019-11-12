@@ -1,6 +1,5 @@
 dockerfile-language-server-bin
 downgrade
-go-git
 google-chrome-dev
 google-chrome
 javascript-typescript-langserver
