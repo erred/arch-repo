@@ -77,15 +77,6 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
-  - id: build kubernetes-helm-git
-    waitFor: ["precache"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=kubernetes-helm-git
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
   - id: build microsoft-python-language-server
     waitFor: ["precache"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
@@ -155,15 +146,6 @@ steps:
     entrypoint: /usr/bin/bash
     env:
         - PKG=wl-clipboard-x11
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
-  - id: build xml-language-server-git
-    waitFor: ["precache"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=xml-language-server-git
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
