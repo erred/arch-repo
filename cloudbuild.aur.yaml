@@ -12,6 +12,7 @@ artifacts:
     paths:
       - $_BKT/*
 
+timeout: 1200s
 steps:
   - id: warm pkg cache
     name: gcr.io/cloud-builders/gsutil
@@ -23,7 +24,6 @@ steps:
       - .
 
   - id: build pkgs
-    timeout: 1200s
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     args:
