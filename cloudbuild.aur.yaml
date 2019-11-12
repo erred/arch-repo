@@ -23,6 +23,7 @@ steps:
       - .
 
   - id: build pkgs
+    timeout: 1200s
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     args:
