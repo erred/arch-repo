@@ -43,14 +43,14 @@ while read pkg; do
         - ./archinstall.sh
 EOF2
 
-done < pkglist.txt
+done < pkglist
 
 cat << EOF3 >> $OUTFILE
 
   - id: collect
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    name: gcr.io/\$PROJECT_ID/\$_IMG:latest
     entrypoint: /usr/bin/bash
     args:
       - -c
-      - sudo repo-add -R $_BKT/seankhliao.db.tar.zst $_BKT/*.pkg.tar.zst
+      - sudo repo-add -R \$_BKT/seankhliao.db.tar.zst \$_BKT/*.pkg.tar.zst
 EOF3

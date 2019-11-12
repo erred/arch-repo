@@ -205,8 +205,8 @@ steps:
         - ./archinstall.sh
 
   - id: collect
-    name: gcr.io//:latest
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     args:
       - -c
-      - sudo repo-add -R /seankhliao.db.tar.zst /*.pkg.tar.zst
+      - sudo repo-add -R $_BKT/seankhliao.db.tar.zst $_BKT/*.pkg.tar.zst
