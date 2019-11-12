@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-OUTFILE=cloudbuild.aur2.yaml
+OUTFILE=cloudbuild.aur.yaml
 
 cat << EOF1 > $OUTFILE
 tags:
