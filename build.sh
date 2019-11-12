@@ -13,13 +13,20 @@ mkdir $BUILD
 HOME=/tmp
 yay -S --noconfirm --builddir $BUILD --batchinstall \
     downgrade \
+    exa-git \
+    go-git \
     google-chrome-dev \
     google-chrome \
+    kitty-git \
     kubernetes-helm-git \
+    neovim-git \
     neovim-plug-git \
+    ripgrep-git \
+    rsync-git \
     tag-ag \
     wl-clipboard-x11 \
-    yay-bin
+    yay-bin \
+    zsh-completions-git
 
 for p in $BUILD/*; do
     sudo cp -v $p/*.$EXT $PKGS/
