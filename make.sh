@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-OUTFILE=cloudbuild.aur.yaml
+OUTFILE=cloudbuild.yaml
 
 cat << EOF1 > $OUTFILE
 tags:
@@ -11,6 +11,8 @@ tags:
 substitutions:
   _IMG: arch-repo-builder
   _BKT: seankhliao-arch-repo
+images:
+  - gcr.io/\$PROJECT_ID/\$_IMG:latest
 artifacts:
   objects:
     location: gs://\$_BKT
@@ -20,6 +22,7 @@ artifacts:
 timeout: 1200s
 steps:
   - id: precache
+    waitFor: ["-"]
     name: gcr.io/cloud-builders/gsutil
     args:
       - -m
@@ -27,13 +30,20 @@ steps:
       - -r
       - gs://\$_BKT
       - .
+  - id: builder
+    waitFor: ["-"]
+    name: gcr.io/cloud-builders/docker:latest
+    args:
+      - build
+      - -t=gcr.io/\$PROJECT_ID/\$_IMG:latest
+      - .
 
 EOF1
 
 while read pkg; do
     cat << EOF2 >> $OUTFILE
   - id: build $pkg
-    waitFor: ["precache"]
+    waitFor: ["precache", "builder"]
     name: gcr.io/\$PROJECT_ID/\$_IMG:latest
     entrypoint: /usr/bin/bash
     env:

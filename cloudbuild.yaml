@@ -1,0 +1,195 @@
+tags:
+  - $COMMIT_SHA
+  - $SHORT_SHA
+  - arch-repo
+  - arch-repo-aur
+substitutions:
+  _IMG: arch-repo-builder
+  _BKT: seankhliao-arch-repo
+images:
+  - gcr.io/$PROJECT_ID/$_IMG:latest
+artifacts:
+  objects:
+    location: gs://$_BKT
+    paths:
+      - $_BKT/*
+
+timeout: 1200s
+steps:
+  - id: precache
+    waitFor: ["-"]
+    name: gcr.io/cloud-builders/gsutil
+    args:
+      - -m
+      - rsync
+      - -r
+      - gs://$_BKT
+      - .
+  - id: builder
+    waitFor: ["-"]
+    name: gcr.io/cloud-builders/docker:latest
+    args:
+      - build
+      - -t=gcr.io/$PROJECT_ID/$_IMG:latest
+      - .
+
+  - id: build dockerfile-language-server-bin
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=dockerfile-language-server-bin
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build downgrade
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=downgrade
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build google-chrome-dev
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=google-chrome-dev
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build google-chrome
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=google-chrome
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build javascript-typescript-langserver
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=javascript-typescript-langserver
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build kitty-git
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=kitty-git
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build microsoft-python-language-server
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=microsoft-python-language-server
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build neovim-git
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=neovim-git
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build neovim-plug-git
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=neovim-plug-git
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build tag-ag
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=tag-ag
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build vscode-css-languageserver-bin
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=vscode-css-languageserver-bin
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build vscode-html-languageserver-bin
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=vscode-html-languageserver-bin
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build vscode-json-languageserver-bin
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=vscode-json-languageserver-bin
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build wl-clipboard-x11
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=wl-clipboard-x11
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build yaml-language-server-bin
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=yaml-language-server-bin
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build yay-bin
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=yay-bin
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build zsh-completions-git
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=zsh-completions-git
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+
+  - id: collect
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    args:
+      - -c
+      - sudo repo-add -R $_BKT/seankhliao.db.tar.zst $_BKT/*.pkg.tar.zst

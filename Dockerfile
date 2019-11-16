@@ -1,7 +1,7 @@
 FROM archlinux
 
 COPY makepkg.conf /etc/
-RUN pacman -Sy --noconfirm --noprogressbar reflector && \
+RUN pacman -Syu --noconfirm --noprogressbar reflector && \
     reflector --latest 5 --sort rate --save /etc/pacman.d/mirrorlist && \
     pacman -Syu --noconfirm --noprogressbar base-devel git && \
     useradd -m user && \
