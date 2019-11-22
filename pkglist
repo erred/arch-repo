@@ -7,7 +7,6 @@ kitty-git
 microsoft-python-language-server
 neovim-git
 neovim-plug-git
-tag-ag
 vscode-css-languageserver-bin
 vscode-html-languageserver-bin
 vscode-json-languageserver-bin
