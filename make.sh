@@ -55,7 +55,7 @@ EOF2
 
 done < pkglist
 
-cat << EOF3 >> $OUTFILE
+cat << EOF4 >> $OUTFILE
 
   - id: collect
     name: gcr.io/\$PROJECT_ID/\$_IMG:latest
@@ -63,4 +63,4 @@ cat << EOF3 >> $OUTFILE
     args:
       - -c
       - sudo repo-add -R \$_BKT/seankhliao.db.tar.zst \$_BKT/*.pkg.tar.zst
-EOF3
+EOF4

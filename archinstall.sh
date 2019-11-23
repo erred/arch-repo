@@ -12,8 +12,14 @@ HOME=/tmp
 mkdir $BUILD
 [[ -d $OUTDIR ]] || sudo mkdir $OUTDIR
 
-yay -Syu --noconfirm --builddir $BUILD --batchinstall $PKG
+if [[ -d $PKG ]]; then
+    cp -r $PKG $BUILD
+    cd $BUILD/$PKG
+    makepkg -s
+else
+    yay -Syu --noconfirm --builddir $BUILD --batchinstall $PKG
+fi
+
 for p in $BUILD/*; do
     sudo cp -v $p/*.pkg.tar.zst $OUTDIR/
 done
-

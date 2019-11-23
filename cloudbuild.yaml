@@ -114,6 +114,15 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
+  - id: build sway-service
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=sway-service
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
   - id: build vscode-css-languageserver-bin
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
