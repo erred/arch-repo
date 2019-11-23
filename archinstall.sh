@@ -14,8 +14,10 @@ mkdir $BUILD
 
 if [[ -d $PKG ]]; then
     cp -r $PKG $BUILD
+    loc=$(pwd)
     cd $BUILD/$PKG
     makepkg -s --noconfirm
+    cd $loc
 else
     yay -Syu --noconfirm --builddir $BUILD --batchinstall $PKG
 fi
