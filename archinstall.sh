@@ -15,7 +15,7 @@ mkdir $BUILD
 if [[ -d $PKG ]]; then
     cp -r $PKG $BUILD
     cd $BUILD/$PKG
-    makepkg -s
+    makepkg -s --noconfirm
 else
     yay -Syu --noconfirm --builddir $BUILD --batchinstall $PKG
 fi
