@@ -4,9 +4,11 @@ google-chrome-dev
 google-chrome
 javascript-typescript-langserver
 kitty-git
+libfido2-git
 microsoft-python-language-server
 neovim-git
 neovim-plug-git
+openssh-git
 spotify
 sway-service
 vscode-css-languageserver-bin

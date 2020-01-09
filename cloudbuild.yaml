@@ -87,6 +87,15 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
+  - id: build libfido2-git
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=libfido2-git
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
   - id: build microsoft-python-language-server
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
@@ -111,6 +120,15 @@ steps:
     entrypoint: /usr/bin/bash
     env:
         - PKG=neovim-plug-git
+        - OUTDIR=$_BKT
+    args:
+        - ./archinstall.sh
+  - id: build openssh-git
+    waitFor: ["precache", "builder"]
+    name: gcr.io/$PROJECT_ID/$_IMG:latest
+    entrypoint: /usr/bin/bash
+    env:
+        - PKG=openssh-git
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
