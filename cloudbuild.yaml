@@ -87,12 +87,12 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
-  - id: build libfido2-git
+  - id: build libfido2
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     env:
-        - PKG=libfido2-git
+        - PKG=libfido2
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
@@ -123,12 +123,12 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
-  - id: build openssh-git
+  - id: build openssh-sk-git
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     env:
-        - PKG=openssh-git
+        - PKG=openssh-sk-git
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
