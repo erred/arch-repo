@@ -12,7 +12,7 @@ url='http://www.openssh.org/portable.html'
 license=('custom:BSD')
 arch=('i686' 'x86_64')
 makedepends=('git' 'linux-headers')
-depends=('krb5' 'openssl' 'libedit' 'ldns')
+depends=('krb5' 'openssl' 'libedit' 'ldns' 'libfido2')
 optdepends=('xorg-xauth: X11 forwarding'
             'x11-ssh-askpass: input passphrase in X')
 provides=('openssh')
