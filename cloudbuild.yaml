@@ -33,12 +33,12 @@ steps:
       - -t=gcr.io/$PROJECT_ID/$_IMG:latest
       - .
 
-  - id: build dockerfile-language-server-bin
+  - id: build dive
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     env:
-        - PKG=dockerfile-language-server-bin
+        - PKG=dive
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
@@ -69,30 +69,12 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
-  - id: build javascript-typescript-langserver
-    waitFor: ["precache", "builder"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=javascript-typescript-langserver
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
   - id: build kitty-git
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     env:
         - PKG=kitty-git
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
-  - id: build microsoft-python-language-server
-    waitFor: ["precache", "builder"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=microsoft-python-language-server
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
@@ -132,48 +114,12 @@ steps:
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
-  - id: build vscode-css-languageserver-bin
-    waitFor: ["precache", "builder"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=vscode-css-languageserver-bin
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
-  - id: build vscode-html-languageserver-bin
-    waitFor: ["precache", "builder"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=vscode-html-languageserver-bin
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
-  - id: build vscode-json-languageserver-bin
-    waitFor: ["precache", "builder"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=vscode-json-languageserver-bin
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
   - id: build wl-clipboard-x11
     waitFor: ["precache", "builder"]
     name: gcr.io/$PROJECT_ID/$_IMG:latest
     entrypoint: /usr/bin/bash
     env:
         - PKG=wl-clipboard-x11
-        - OUTDIR=$_BKT
-    args:
-        - ./archinstall.sh
-  - id: build yaml-language-server-bin
-    waitFor: ["precache", "builder"]
-    name: gcr.io/$PROJECT_ID/$_IMG:latest
-    entrypoint: /usr/bin/bash
-    env:
-        - PKG=yaml-language-server-bin
         - OUTDIR=$_BKT
     args:
         - ./archinstall.sh
